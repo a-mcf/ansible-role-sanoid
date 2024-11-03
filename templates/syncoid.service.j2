@@ -64,8 +64,8 @@ ExecStart={{ syncoid_path | default(syncoid_bin_path) }} \
 {% if sync.recvoptions | default('') %}
   --recvoptions={{ sync.recvoptions }} \
 {% endif %}
-{% if sync.no_privilege_escalation | default(False) %}
-  --no-privilege-escalation \
+{% if sync.no_privilege_elevation | default(False) %}
+  --no-privilege-elevation \
 {% endif %}
 {% if sync.no_resume | default(False) %}
   --no-resume \
@@ -73,7 +73,6 @@ ExecStart={{ syncoid_path | default(syncoid_bin_path) }} \
 {% if sync.no_clone_handling | default(False) %}
   --no-clone-handling \
 {% endif %}
-
 {% if syncoid_use_ssh_key | default(False) %}
   --sshkey {{ syncoid_ssh_key }} \
 {% endif %}
