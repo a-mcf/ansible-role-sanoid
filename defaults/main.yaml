@@ -1,4 +1,5 @@
 ---
+### Installation
 # Install method: package or source
 sanoid_install_from: package
 
@@ -17,6 +18,8 @@ sanoid_source_version: latest
 # Remove sanoid package when installing from source
 sanoid_source_remove_package: yes
 
+### Sanoid
+## Configuration
 # Datasets to snapshot
 sanoid_datasets: []
 
@@ -29,21 +32,57 @@ sanoid_conf_dir: /etc/sanoid
 # Configuration file path
 sanoid_conf: "{{ sanoid_conf_dir }}/sanoid.conf"
 
-# systemd timer frequency
+## Systemd service
+# ExecPreStart
+sanoid_service_pre_start: []
+
+# ExecPostStart
+sanoid_service_post_start: []
+
+# Timer enabled
+sanoid_timer_enabled: yes
+
+# Timer frequency
 sanoid_timer_frequency: '*:0/15'
 
+## Systemd prune service
+# ExecPreStart
+sanoid_prune_service_pre_start: []
+
+# ExecPostStart
+sanoid_prune_service_post_start: []
+
+# Service enabled
+sanoid_prune_service_enabled: yes
+
+### Syncoid
+## Configuration
 # Replication pairs
 syncoid_syncs: []
 
-# systemd service name
+# Default ZFS send options
+syncoid_send_options: ''
+
+# Default ZFS recv options
+syncoid_recv_options: ''
+
+## Systemd service
+# Service name
 syncoid_service_name: syncoid
 
-# systemd timer frequency
+# ExecPreStart
+syncoid_service_pre_start: []
+
+# ExecPostStart
+syncoid_service_post_start: []
+
+# Timer frequency
 syncoid_timer_frequency: daily
 
-# systemd timer enabled
+# Timer enabled
 syncoid_timer_enabled: yes
 
+## SSH configuration
 # Use an SSH key to connect to remote hosts
 syncoid_use_ssh_key: yes
 
@@ -59,8 +98,30 @@ syncoid_generated_ssh_key_type: 'rsa'
 # Number of bits of generated SSH key
 syncoid_generated_ssh_key_bits: 2048
 
+# Type of SSH key
+syncoid_ssh_key_type: "{{ syncoid_generated_ssh_key_type if syncoid_generate_ssh_key else 'rsa' }}"
+
 # Path to SSH key
 syncoid_ssh_key: "/root/.ssh/{{ syncoid_generated_ssh_key if syncoid_generate_ssh_key else 'id_rsa' }}"
 
+# Path to known hosts
+syncoid_known_hosts: "/root/.ssh/known_hosts"
+
 # Install SSH key on remote hosts
 syncoid_ssh_key_install_remote: yes
+
+# Update known hosts
+syncoid_update_known_hosts: yes
+
+### Healthchecks
+## Installation
+syncoid_healthchecks_install_runitor: false
+
+# Github Repo URL
+syncoid_healthchecks_runitor_github_url: https://github.com/bdd/runitor
+
+# Install directory
+syncoid_healthchecks_runitor_install_dir: /usr/local/sbin
+
+## Config
+syncoid_healthchecks_api_url: 'https://hc-ping.com'
