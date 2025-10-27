@@ -76,7 +76,7 @@ ExecStart={{ healthcheck(syncoid_sync) }}
 {% if syncoid_sync.recv_options | default(syncoid_recv_options) | default(False) %}
   --recvoptions={{ syncoid_sync.recv_options | default(syncoid_recv_options) }} \
 {% endif %}
-{% if sync.no_privilege_elevation | default(False) %}
+{% if syncoid_sync.no_privilege_elevation | default(False) %}
   --no-privilege-elevation \
 {% endif %}
 {% if syncoid_sync.no_resume | default(False) %}
