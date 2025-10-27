@@ -203,6 +203,7 @@
         state: started
         enabled: false
         masked: no
+      when: "{{ syncoid_service_name }}.timer" in (syncoid_target.status.Wants | default('') | split(' '))
       notify: reload systemd
 
     - name: remove syncoid systemd sync services
